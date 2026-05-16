@@ -1,0 +1,33 @@
+{
+  "name": "signal-nonprofit-observatory",
+  "version": "0.1.0",
+  "description": "Open-source dashboard for mapping nonprofit software gaps, source evidence, and practical AI opportunities.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "nonprofit",
+    "civic-tech",
+    "ai",
+    "research",
+    "open-data",
+    "neon",
+    "postgres"
+  ],
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "db:setup": "node scripts/setup-db.js",
+    "db:seed": "node scripts/seed-db.js",
+    "db:reset": "node scripts/setup-db.js --reset && node scripts/seed-db.js",
+    "check": "node --check server.js && node --check scripts/setup-db.js && node --check scripts/seed-db.js && node --check data/seed.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}

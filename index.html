@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signal Nonprofit Software Observatory</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b231d'/%3E%3Cpath d='M18 43c7-17 14-24 28-24M19 43h26' stroke='%23d8ff7a' stroke-width='6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar" aria-label="Workspace navigation">
+        <div class="brand">
+          <div class="mark" aria-hidden="true">S</div>
+          <div>
+            <strong>Signal</strong>
+            <span>Software Observatory</span>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Primary">
+          <button class="nav-item is-active" type="button" data-view="landscape">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14" /></svg>
+            Landscape
+          </button>
+          <button class="nav-item" type="button" data-view="gaps">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16 9 4l3 7 4-4" /></svg>
+            Gap map
+          </button>
+          <button class="nav-item" type="button" data-view="ai">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14M5.5 5.5l9 9M14.5 5.5l-9 9" /></svg>
+            AI fit
+          </button>
+        </nav>
+
+        <section class="sidebar-section">
+          <h2>Profile</h2>
+          <div class="field-stack">
+            <label class="field">
+              <span>Region</span>
+              <select id="region-filter">
+                <option value="all">All regions</option>
+                <option value="Global">Global</option>
+                <option value="East Africa">East Africa</option>
+                <option value="South Asia">South Asia</option>
+                <option value="Latin America">Latin America</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Organization size</span>
+              <select id="size-filter">
+                <option value="all">All sizes</option>
+                <option value="Micro">Micro</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Workflow</span>
+              <select id="workflow-filter">
+                <option value="all">All workflows</option>
+                <option value="Fundraising CRM">Fundraising CRM</option>
+                <option value="Grant writing">Grant writing</option>
+                <option value="Volunteer coordination">Volunteer coordination</option>
+                <option value="Impact reporting">Impact reporting</option>
+                <option value="Community support">Community support</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="sidebar-section">
+          <h2>Scoring weights</h2>
+          <label class="weight">
+            <span>Cost sensitivity</span>
+            <input id="cost-weight" type="range" min="0" max="100" value="78" />
+          </label>
+          <label class="weight">
+            <span>Field readiness</span>
+            <input id="field-weight" type="range" min="0" max="100" value="84" />
+          </label>
+          <label class="weight">
+            <span>AI usefulness</span>
+            <input id="ai-weight" type="range" min="0" max="100" value="63" />
+          </label>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="toolbar">
+          <div>
+            <h1>Nonprofit software coverage</h1>
+            <p id="workspace-subtitle">Small organizations, global constraints, practical AI opportunities.</p>
+          </div>
+          <div class="toolbar-actions">
+            <label class="search">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m14 14 3 3M8.5 15a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Z" /></svg>
+              <span class="sr-only">Search landscape</span>
+              <input id="search-input" type="search" placeholder="Search tools, workflows, constraints" />
+            </label>
+            <button id="reset-filters" class="command" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4v5h5M16 16v-5h-5M5 8a6 6 0 0 1 10-2M15 12A6 6 0 0 1 5 14" /></svg>
+              Reset
+            </button>
+          </div>
+        </header>
+
+        <section class="snapshot" aria-label="Research summary">
+          <article>
+            <span>Tools in lens</span>
+            <strong id="tool-count">0</strong>
+          </article>
+          <article>
+            <span>Median gap</span>
+            <strong id="median-gap">0</strong>
+          </article>
+          <article>
+            <span>Strong AI fit</span>
+            <strong id="ai-count">0</strong>
+          </article>
+          <article>
+            <span>Highest pressure</span>
+            <strong id="pressure-label">Community support</strong>
+          </article>
+        </section>
+
+        <section class="analysis-grid">
+          <section class="panel matrix-panel">
+            <div class="panel-head">
+              <h2>Coverage matrix</h2>
+              <p>Higher scores mean stronger evidence of unmet need.</p>
+            </div>
+            <div id="matrix" class="matrix"></div>
+          </section>
+
+          <section class="panel detail-panel" aria-live="polite">
+            <div class="panel-head">
+              <h2 id="detail-title">Select a tool</h2>
+              <p id="detail-summary">Choose a landscape row to inspect fit, gap drivers, and AI intervention ideas.</p>
+            </div>
+            <div id="detail-body" class="detail-body"></div>
+          </section>
+        </section>
+
+        <section class="main-grid">
+          <section class="panel table-panel">
+            <div class="panel-head table-headline">
+              <div>
+                <h2>Landscape table</h2>
+                <p id="results-copy">0 matching tools</p>
+              </div>
+              <div class="segmented" role="tablist" aria-label="Sort tools">
+                <button class="is-active" type="button" data-sort="gap">Gap</button>
+                <button type="button" data-sort="ai">AI fit</button>
+                <button type="button" data-sort="cost">Cost</button>
+              </div>
+            </div>
+            <div class="data-table" role="table" aria-label="Software landscape">
+              <div class="table-row table-header" role="row">
+                <span role="columnheader">Tool</span>
+                <span role="columnheader">Workflow</span>
+                <span role="columnheader">Region</span>
+                <span role="columnheader">Fit</span>
+                <span role="columnheader">Gap</span>
+                <span role="columnheader">AI</span>
+              </div>
+              <div id="tool-list"></div>
+            </div>
+          </section>
+
+          <aside class="side-stack">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Gap drivers</h2>
+                <p>Repeated constraints across the current lens.</p>
+              </div>
+              <div id="gap-list" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Research queue</h2>
+                <p>Evidence to collect before recommending a build.</p>
+              </div>
+              <div id="queue-list" class="stack-list"></div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

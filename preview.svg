@@ -1,0 +1,177 @@
+<svg width="1440" height="1180" viewBox="0 0 1440 1180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="1180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F2E7"/>
+      <stop offset="1" stop-color="#F2ECE1"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="368" y1="40" x2="1400" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDF7"/>
+      <stop offset="1" stop-color="#F6EFE2"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="250" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D68D52"/>
+      <stop offset="0.62" stop-color="#B55D33"/>
+      <stop offset="1" stop-color="#7F2F1C"/>
+    </linearGradient>
+    <filter id="shadow" x="300" y="0" width="1140" height="1120" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#24180E" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="1180" fill="url(#bg)"/>
+  <circle cx="180" cy="110" r="220" fill="#2A7E7B" fill-opacity="0.08"/>
+  <circle cx="1330" cy="1030" r="260" fill="#B55D33" fill-opacity="0.08"/>
+
+  <rect x="0" y="0" width="320" height="1180" fill="#FFF8F0" fill-opacity="0.78"/>
+  <line x1="320.5" y1="0" x2="320.5" y2="1180" stroke="#4A3927" stroke-opacity="0.14"/>
+
+  <text x="34" y="62" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">OPEN-SOURCE NONPROFIT SOFTWARE INTELLIGENCE</text>
+  <text x="34" y="120" fill="#20160D" font-size="58" font-weight="800" font-family="Manrope, Arial, sans-serif">Signal</text>
+  <text x="34" y="164" fill="#6D5B49" font-size="18" font-family="Manrope, Arial, sans-serif">Research what exists, where it breaks for</text>
+  <text x="34" y="190" fill="#6D5B49" font-size="18" font-family="Manrope, Arial, sans-serif">small nonprofits, and where AI can reduce</text>
+  <text x="34" y="216" fill="#6D5B49" font-size="18" font-family="Manrope, Arial, sans-serif">operational friction.</text>
+
+  <line x1="26" y1="282.5" x2="294" y2="282.5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="34" y="314" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">RESEARCH LENS</text>
+
+  <rect x="34" y="338" width="250" height="56" rx="28" fill="#FFFDF7" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="52" y="361" fill="#20160D" font-size="13" font-weight="700" font-family="Manrope, Arial, sans-serif">Region</text>
+  <text x="52" y="378" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">All regions</text>
+
+  <rect x="34" y="412" width="250" height="56" rx="28" fill="#FFFDF7" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="52" y="435" fill="#20160D" font-size="13" font-weight="700" font-family="Manrope, Arial, sans-serif">Org size</text>
+  <text x="52" y="452" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">All org sizes</text>
+
+  <rect x="34" y="486" width="250" height="56" rx="28" fill="#FFFDF7" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="52" y="509" fill="#20160D" font-size="13" font-weight="700" font-family="Manrope, Arial, sans-serif">Workflow</text>
+  <text x="52" y="526" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">All workflows</text>
+
+  <line x1="26" y1="590.5" x2="294" y2="590.5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="34" y="624" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">GAP RUBRIC</text>
+  <text x="34" y="658" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">• Cost burden for small teams</text>
+  <text x="34" y="690" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">• Multilingual and regional readiness</text>
+  <text x="34" y="722" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">• Low-bandwidth and mobile practicality</text>
+  <text x="34" y="754" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">• Admin overhead to maintain</text>
+  <text x="34" y="786" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">• Where AI saves time without risk</text>
+
+  <g filter="url(#shadow)">
+    <rect x="348" y="32" width="1060" height="252" rx="28" fill="url(#hero)" stroke="#4A3927" stroke-opacity="0.14"/>
+  </g>
+  <text x="380" y="74" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">LANDSCAPE SCANNER</text>
+  <text x="380" y="136" fill="#20160D" font-size="54" font-weight="800" font-family="Manrope, Arial, sans-serif">See the tool market the way a</text>
+  <text x="380" y="194" fill="#20160D" font-size="54" font-weight="800" font-family="Manrope, Arial, sans-serif">small nonprofit experiences it.</text>
+  <text x="380" y="236" fill="#6D5B49" font-size="19" font-family="Manrope, Arial, sans-serif">Search vendor categories, spot underserved segments, and compare AI opportunities</text>
+  <text x="380" y="263" fill="#6D5B49" font-size="19" font-family="Manrope, Arial, sans-serif">that are practical for small global teams.</text>
+
+  <rect x="1028" y="62" width="334" height="58" rx="29" fill="#FFFDF7" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="1052" y="98" fill="#6D5B49" font-size="16" font-family="Manrope, Arial, sans-serif">Search fundraising, WhatsApp, multilingual...</text>
+  <rect x="1128" y="138" width="234" height="56" rx="28" fill="#FFF8F0" stroke="#4A3927" stroke-opacity="0.16"/>
+  <text x="1195" y="172" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Reset filters</text>
+
+  <rect x="1028" y="206" width="334" height="58" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.12"/>
+  <text x="1050" y="228" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">CURRENT SIGNAL</text>
+  <text x="1050" y="250" fill="#20160D" font-size="18" font-weight="700" font-family="Manrope, Arial, sans-serif">East Africa mobile-first outreach</text>
+  <text x="1050" y="271" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Few tools combine WhatsApp workflows, low-bandwidth</text>
+  <text x="1050" y="290" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">operation, and structured nonprofit case management.</text>
+
+  <rect x="348" y="304" width="336" height="112" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <rect x="702" y="304" width="336" height="112" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <rect x="1056" y="304" width="336" height="112" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="372" y="336" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">Total tools mapped</text>
+  <text x="372" y="388" fill="#20160D" font-size="40" font-weight="800" font-family="Manrope, Arial, sans-serif">7</text>
+  <text x="726" y="336" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">High-gap workflows</text>
+  <text x="726" y="388" fill="#20160D" font-size="40" font-weight="800" font-family="Manrope, Arial, sans-serif">3</text>
+  <text x="1080" y="336" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">AI-fit opportunities</text>
+  <text x="1080" y="388" fill="#20160D" font-size="40" font-weight="800" font-family="Manrope, Arial, sans-serif">4</text>
+
+  <rect x="348" y="438" width="650" height="244" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="374" y="472" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">PROFILE SNAPSHOT</text>
+  <text x="374" y="504" fill="#20160D" font-size="24" font-weight="700" font-family="Manrope, Arial, sans-serif">Micro nonprofit in East Africa</text>
+  <text x="374" y="536" fill="#6D5B49" font-size="17" font-family="Manrope, Arial, sans-serif">Looking for lightweight constituent operations, multilingual outreach,</text>
+  <text x="374" y="560" fill="#6D5B49" font-size="17" font-family="Manrope, Arial, sans-serif">and reporting that does not require a full data team.</text>
+
+  <rect x="374" y="584" width="286" height="72" rx="12" fill="white" fill-opacity="0.42" stroke="#4A3927" stroke-opacity="0.10"/>
+  <rect x="680" y="584" width="286" height="72" rx="12" fill="white" fill-opacity="0.42" stroke="#4A3927" stroke-opacity="0.10"/>
+  <text x="392" y="608" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">LANGUAGES</text>
+  <text x="392" y="634" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">English + local language</text>
+  <text x="698" y="608" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">CONNECTIVITY</text>
+  <text x="698" y="634" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Mixed / low bandwidth</text>
+
+  <rect x="374" y="668" width="286" height="72" rx="12" fill="white" fill-opacity="0.42" stroke="#4A3927" stroke-opacity="0.10"/>
+  <rect x="680" y="668" width="286" height="72" rx="12" fill="white" fill-opacity="0.42" stroke="#4A3927" stroke-opacity="0.10"/>
+  <text x="392" y="692" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">OPS MODEL</text>
+  <text x="392" y="718" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Field-first, mobile-heavy</text>
+  <text x="698" y="692" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">BUDGET PRESSURE</text>
+  <text x="698" y="718" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">High</text>
+
+  <rect x="1018" y="438" width="390" height="244" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="1042" y="472" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">GAP HEATMAP</text>
+  <text x="1042" y="504" fill="#20160D" font-size="24" font-weight="700" font-family="Manrope, Arial, sans-serif">Workflow pressure</text>
+
+  <text x="1042" y="546" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Community support</text>
+  <text x="1328" y="546" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">84/100</text>
+  <rect x="1042" y="560" width="320" height="10" rx="5" fill="#20160D" fill-opacity="0.08"/>
+  <rect x="1042" y="560" width="269" height="10" rx="5" fill="url(#bar)"/>
+
+  <text x="1042" y="604" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Impact reporting</text>
+  <text x="1328" y="604" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">79/100</text>
+  <rect x="1042" y="618" width="320" height="10" rx="5" fill="#20160D" fill-opacity="0.08"/>
+  <rect x="1042" y="618" width="253" height="10" rx="5" fill="url(#bar)"/>
+
+  <text x="1042" y="662" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Grant writing</text>
+  <text x="1328" y="662" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">73/100</text>
+  <rect x="1042" y="676" width="320" height="10" rx="5" fill="#20160D" fill-opacity="0.08"/>
+  <rect x="1042" y="676" width="234" height="10" rx="5" fill="url(#bar)"/>
+
+  <rect x="348" y="704" width="650" height="430" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="374" y="738" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">AVAILABLE TOOLS</text>
+  <text x="374" y="770" fill="#20160D" font-size="24" font-weight="700" font-family="Manrope, Arial, sans-serif">Current landscape</text>
+  <text x="794" y="770" fill="#6D5B49" font-size="15" font-family="Manrope, Arial, sans-serif">7 matching tools in this research lens</text>
+  <line x1="374" y1="790.5" x2="972" y2="790.5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="374" y="815" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">TOOL</text>
+  <text x="640" y="815" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">WORKFLOW</text>
+  <text x="820" y="815" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">FIT</text>
+  <text x="910" y="815" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace">GAP</text>
+
+  <text x="374" y="858" fill="#20160D" font-size="17" font-weight="700" font-family="Manrope, Arial, sans-serif">WhatsApp outreach workflows</text>
+  <text x="374" y="880" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Few nonprofit-specific operations layers exist.</text>
+  <text x="640" y="869" fill="#6D5B49" font-size="13" font-family="IBM Plex Mono, monospace">COMMUNITY SUPPORT</text>
+  <rect x="818" y="845" width="100" height="28" rx="14" fill="#1D6F6D" fill-opacity="0.10"/>
+  <text x="835" y="863" fill="#1D6F6D" font-size="12" font-family="IBM Plex Mono, monospace">HIGH FIT</text>
+  <rect x="912" y="845" width="48" height="28" rx="14" fill="#B55D33" fill-opacity="0.12"/>
+  <text x="923" y="863" fill="#B55D33" font-size="12" font-family="IBM Plex Mono, monospace">83</text>
+
+  <line x1="374" y1="896.5" x2="972" y2="896.5" stroke="#4A3927" stroke-opacity="0.10"/>
+  <text x="374" y="933" fill="#20160D" font-size="17" font-weight="700" font-family="Manrope, Arial, sans-serif">Grantable + docs workflow</text>
+  <text x="374" y="955" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">AI drafting exists; evidence gathering is weaker.</text>
+  <text x="640" y="944" fill="#6D5B49" font-size="13" font-family="IBM Plex Mono, monospace">GRANT WRITING</text>
+  <rect x="818" y="920" width="118" height="28" rx="14" fill="#1D6F6D" fill-opacity="0.10"/>
+  <text x="833" y="938" fill="#1D6F6D" font-size="12" font-family="IBM Plex Mono, monospace">DRAFTING-LED</text>
+  <rect x="912" y="920" width="48" height="28" rx="14" fill="#B55D33" fill-opacity="0.12"/>
+  <text x="923" y="938" fill="#B55D33" font-size="12" font-family="IBM Plex Mono, monospace">76</text>
+
+  <line x1="374" y1="971.5" x2="972" y2="971.5" stroke="#4A3927" stroke-opacity="0.10"/>
+  <text x="374" y="1008" fill="#20160D" font-size="17" font-weight="700" font-family="Manrope, Arial, sans-serif">Spreadsheet reporting stack</text>
+  <text x="374" y="1030" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Cheap and common, but brittle across forms and chats.</text>
+  <text x="640" y="1019" fill="#6D5B49" font-size="13" font-family="IBM Plex Mono, monospace">IMPACT REPORTING</text>
+  <rect x="818" y="995" width="126" height="28" rx="14" fill="#1D6F6D" fill-opacity="0.10"/>
+  <text x="833" y="1013" fill="#1D6F6D" font-size="12" font-family="IBM Plex Mono, monospace">CHEAP BUT FRAGILE</text>
+  <rect x="912" y="995" width="48" height="28" rx="14" fill="#B55D33" fill-opacity="0.12"/>
+  <text x="923" y="1013" fill="#B55D33" font-size="12" font-family="IBM Plex Mono, monospace">81</text>
+
+  <rect x="1018" y="704" width="390" height="196" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="1042" y="738" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">UNDERSERVED AREAS</text>
+  <text x="1042" y="770" fill="#20160D" font-size="24" font-weight="700" font-family="Manrope, Arial, sans-serif">Where the market is thin</text>
+  <text x="1042" y="812" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Mobile-first constituent operations</text>
+  <text x="1042" y="834" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Small field teams rely on WhatsApp and paper notes.</text>
+  <text x="1042" y="872" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Evidence-linked grant preparation</text>
+  <text x="1042" y="894" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Source reuse and evidence collection remain weak.</text>
+
+  <rect x="1018" y="918" width="390" height="216" rx="18" fill="#FFFCF5" stroke="#4A3927" stroke-opacity="0.14"/>
+  <text x="1042" y="952" fill="#6D5B49" font-size="12" font-family="IBM Plex Mono, monospace" letter-spacing="1.2">AI RECOMMENDATIONS</text>
+  <text x="1042" y="984" fill="#20160D" font-size="24" font-weight="700" font-family="Manrope, Arial, sans-serif">Where AI helps</text>
+  <text x="1042" y="1026" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">Grant brief generator</text>
+  <text x="1042" y="1048" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Summarize funder criteria and prior proposals.</text>
+  <text x="1042" y="1086" fill="#20160D" font-size="16" font-weight="700" font-family="Manrope, Arial, sans-serif">WhatsApp intake summarizer</text>
+  <text x="1042" y="1108" fill="#6D5B49" font-size="14" font-family="Manrope, Arial, sans-serif">Turn chat threads into tagged case notes.</text>
+</svg>
