@@ -24,6 +24,9 @@ This repository contains a working Neon-backed prototype:
 - Seed database schema and sample research records
 - Filters for region, organization size, workflow, and scoring weights
 - Gap scores, AI-fit scores, evidence snippets, and a coverage matrix
+- Future-state source/connector readiness panel
+- Basic search API across tools and reviewed evidence
+- Exportable markdown research brief for the current lens
 - Product, technical, app-flow, data-source, and roadmap documentation
 
 ## Tech Stack
@@ -43,6 +46,17 @@ npm run db:setup
 npm run db:seed
 npm run dev
 ```
+
+## API Surface
+
+- `GET /api/health`
+- `GET /api/dashboard`
+- `GET /api/tools`
+- `GET /api/tools/:slug`
+- `GET /api/workflows`
+- `GET /api/sources`
+- `GET /api/search?q=...`
+- `GET /api/reports/brief`
 
 Then open:
 

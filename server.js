@@ -2,6 +2,7 @@ import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sql } from "./lib/db.js";
+import { connectorRegistry } from "./data/connectors.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -100,6 +101,104 @@ async function fetchTools(query) {
   return rows.map((row) => serializeTool(row, weights));
 }
 
+async function fetchDashboard(query) {
+  const tools = await fetchTools(query);
+  const workflows = [...new Set(tools.map((tool) => tool.workflow))];
+  const regions = ["Global", "East Africa", "South Asia", "Latin America"];
+  const scores = tools.map((tool) => tool.gap).sort((a, b) => a - b);
+  const medianGap = scores.length ? scores[Math.floor(scores.length / 2)] : 0;
+  const strongest = [...tools].sort((a, b) => b.gap - a.gap)[0];
+
+  const matrix = workflows.map((workflow) => ({
+    workflow,
+    regions: regions.map((region) => {
+      const scoped = tools.filter((tool) => tool.workflow === workflow && tool.region === region);
+      const score = scoped.length
+        ? Math.round(scoped.reduce((sum, tool) => sum + tool.gap, 0) / scoped.length)
+        : 0;
+      return { region, score };
+    }),
+  }));
+
+  const [sourceCount] = await sql`select count(*)::int as count from sources`;
+
+  return {
+    tools,
+    matrix,
+    summary: {
+      toolCount: tools.length,
+      medianGap,
+      strongAiFit: tools.filter((tool) => tool.ai >= 70).length,
+      pressureLabel: strongest?.workflow ?? "No matching data",
+      sourceCount: sourceCount.count,
+    },
+    gapDrivers: [
+      {
+        title: "Mobile intake",
+        note: "Small teams need field-first capture that does not start with a desktop CRM.",
+      },
+      {
+        title: "Source reuse",
+        note: "Grant and reporting workflows lose time because evidence is scattered.",
+      },
+      {
+        title: "Admin overhead",
+        note: "Tools become expensive when setup requires a technical operator.",
+      },
+    ],
+    queue: [
+      {
+        title: "Low-bandwidth proof",
+        note: "Test which tools function under intermittent mobile connectivity.",
+      },
+      {
+        title: "Real cost model",
+        note: "Estimate annual cost after implementation, messaging, seats, and support.",
+      },
+      {
+        title: "Localization depth",
+        note: "Separate translated marketing from in-product workflow localization.",
+      },
+      {
+        title: "Data export quality",
+        note: "Check whether small teams can leave without losing useful records.",
+      },
+    ],
+  };
+}
+
+function buildBrief(dashboard) {
+  const topTools = [...dashboard.tools].sort((a, b) => b.gap - a.gap).slice(0, 5);
+  const aiCandidates = [...dashboard.tools].filter((tool) => tool.ai >= 70).sort((a, b) => b.ai - a.ai).slice(0, 5);
+
+  return [
+    "# Signal Research Brief",
+    "",
+    `Tools in lens: ${dashboard.summary.toolCount}`,
+    `Median gap score: ${dashboard.summary.medianGap}`,
+    `Highest-pressure workflow: ${dashboard.summary.pressureLabel}`,
+    `Strong AI-fit candidates: ${dashboard.summary.strongAiFit}`,
+    "",
+    "## Highest Gap Tools",
+    "",
+    ...topTools.map((tool) => `- ${tool.name} (${tool.workflow}, ${tool.region}): gap ${tool.gap}, AI fit ${tool.ai}. ${tool.summary}`),
+    "",
+    "## AI-Enabled Intervention Candidates",
+    "",
+    ...(aiCandidates.length
+      ? aiCandidates.map((tool) => `- ${tool.name}: ${tool.intervention}`)
+      : ["- No strong AI-fit candidates in the current lens."]),
+    "",
+    "## Evidence Still Needed",
+    "",
+    ...dashboard.queue.map((item) => `- ${item.title}: ${item.note}`),
+    "",
+    "## Caveat",
+    "",
+    "This brief is generated from reviewed catalog records and should be treated as decision support, not an automated procurement recommendation.",
+  ].join("\n");
+}
+
 app.get("/api/health", async (_req, res, next) => {
   try {
     const [result] = await sql`select now() as now`;
@@ -118,71 +217,100 @@ app.get("/api/tools", async (req, res, next) => {
   }
 });
 
+app.get("/api/workflows", async (_req, res, next) => {
+  try {
+    const workflows = await sql`
+      select w.slug, w.name, w.category, count(tp.id)::int as tool_count
+      from workflows w
+      left join tool_profiles tp on tp.workflow_id = w.id
+      group by w.id
+      order by w.category asc, w.name asc
+    `;
+    res.json({ workflows });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/sources", async (_req, res, next) => {
+  try {
+    const sources = await sql`
+      select slug, name, source_type, url, license, last_fetched_at
+      from sources
+      order by name asc
+    `;
+    res.json({ sources, connectors: connectorRegistry });
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.get("/api/dashboard", async (req, res, next) => {
   try {
-    const tools = await fetchTools(req.query);
-    const workflows = [...new Set(tools.map((tool) => tool.workflow))];
-    const regions = ["Global", "East Africa", "South Asia", "Latin America"];
-    const scores = tools.map((tool) => tool.gap).sort((a, b) => a - b);
-    const medianGap = scores.length ? scores[Math.floor(scores.length / 2)] : 0;
-    const strongest = [...tools].sort((a, b) => b.gap - a.gap)[0];
+    res.json(await fetchDashboard(req.query));
+  } catch (error) {
+    next(error);
+  }
+});
 
-    const matrix = workflows.map((workflow) => ({
-      workflow,
-      regions: regions.map((region) => {
-        const scoped = tools.filter((tool) => tool.workflow === workflow && tool.region === region);
-        const score = scoped.length
-          ? Math.round(scoped.reduce((sum, tool) => sum + tool.gap, 0) / scoped.length)
-          : 0;
-        return { region, score };
-      }),
-    }));
+app.get("/api/search", async (req, res, next) => {
+  try {
+    const query = req.query.q?.trim() || "";
+    if (!query) {
+      res.json({ results: [] });
+      return;
+    }
 
-    const [sourceCount] = await sql`select count(*)::int as count from sources`;
+    const results = await sql`
+      select
+        'tool' as kind,
+        tp.slug,
+        tp.name as title,
+        tp.summary as excerpt,
+        w.name as workflow,
+        tp.region,
+        tp.gap_score,
+        tp.ai_fit_score
+      from tool_profiles tp
+      join workflows w on w.id = tp.workflow_id
+      where tp.name ilike ${`%${query}%`}
+        or tp.summary ilike ${`%${query}%`}
+        or tp.intervention ilike ${`%${query}%`}
+        or w.name ilike ${`%${query}%`}
+        or exists (
+          select 1 from unnest(tp.keywords) keyword
+          where keyword ilike ${`%${query}%`}
+        )
+      union all
+      select
+        'evidence' as kind,
+        tp.slug,
+        s.name as title,
+        ei.claim as excerpt,
+        w.name as workflow,
+        tp.region,
+        tp.gap_score,
+        tp.ai_fit_score
+      from evidence_items ei
+      left join sources s on s.id = ei.source_id
+      left join tool_profiles tp on tp.id = ei.tool_id
+      left join workflows w on w.id = ei.workflow_id
+      where ei.claim ilike ${`%${query}%`}
+        or s.name ilike ${`%${query}%`}
+      order by gap_score desc nulls last
+      limit 20
+    `;
 
-    res.json({
-      tools,
-      matrix,
-      summary: {
-        toolCount: tools.length,
-        medianGap,
-        strongAiFit: tools.filter((tool) => tool.ai >= 70).length,
-        pressureLabel: strongest?.workflow ?? "No matching data",
-        sourceCount: sourceCount.count,
-      },
-      gapDrivers: [
-        {
-          title: "Mobile intake",
-          note: "Small teams need field-first capture that does not start with a desktop CRM.",
-        },
-        {
-          title: "Source reuse",
-          note: "Grant and reporting workflows lose time because evidence is scattered.",
-        },
-        {
-          title: "Admin overhead",
-          note: "Tools become expensive when setup requires a technical operator.",
-        },
-      ],
-      queue: [
-        {
-          title: "Low-bandwidth proof",
-          note: "Test which tools function under intermittent mobile connectivity.",
-        },
-        {
-          title: "Real cost model",
-          note: "Estimate annual cost after implementation, messaging, seats, and support.",
-        },
-        {
-          title: "Localization depth",
-          note: "Separate translated marketing from in-product workflow localization.",
-        },
-        {
-          title: "Data export quality",
-          note: "Check whether small teams can leave without losing useful records.",
-        },
-      ],
-    });
+    res.json({ results });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/reports/brief", async (req, res, next) => {
+  try {
+    const dashboard = await fetchDashboard(req.query);
+    res.json({ markdown: buildBrief(dashboard), summary: dashboard.summary });
   } catch (error) {
     next(error);
   }
@@ -222,4 +350,3 @@ app.use((error, _req, res, _next) => {
 app.listen(port, () => {
   console.log(`Signal Observatory running at http://127.0.0.1:${port}`);
 });
-

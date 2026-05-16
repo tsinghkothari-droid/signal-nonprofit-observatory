@@ -31,7 +31,7 @@ Acceptance:
 
 - Dashboard reads from database.
 - Filters and sorting work from API-backed data.
-- Each score shows source/evidence link.
+- Each score shows source/evidence link. `Partially shipped through tool evidence inspector`
 
 ## Phase 2 - Public Dataset Connectors
 
@@ -52,6 +52,11 @@ Acceptance:
 - Raw data is stored immutably.
 - Normalized records can be reviewed before publication.
 
+Current status:
+
+- Connector readiness registry is implemented.
+- Actual ingestion jobs remain future work because source licensing/export formats need review.
+
 ## Phase 3 - Search and AI Layer
 
 Goal: evidence-backed semantic search and report drafting.
@@ -71,6 +76,11 @@ Acceptance:
 - User can search by natural-language nonprofit need.
 - Report draft cites internal evidence IDs.
 - AI-generated data is marked as draft until reviewed.
+
+Current status:
+
+- Basic keyword search and markdown brief generation are implemented.
+- Semantic search, embeddings, and AI generation remain future work.
 
 ## Phase 4 - Contributor Workflow
 
@@ -113,7 +123,7 @@ Acceptance:
 
 1. Expand seed data to 100 source-backed records.
 2. Add SQL migration versioning.
-3. Add `/api/sources`, `/api/workflows`, and `/api/imports`.
+3. Add `/api/imports`.
 4. Add first CSV import path.
 5. Add full source/evidence inspector to dashboard.
 6. Add Playwright smoke workflow for public CI.

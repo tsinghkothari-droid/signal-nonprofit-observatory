@@ -10,6 +10,14 @@ if (reset) {
 }
 
 await sql`
+  create table if not exists schema_migrations (
+    version text primary key,
+    description text not null,
+    applied_at timestamptz not null default now()
+  )
+`;
+
+await sql`
   create table if not exists workflows (
     id uuid primary key default gen_random_uuid(),
     slug text not null unique,
@@ -75,5 +83,10 @@ await sql`create index if not exists idx_tool_profiles_org_size on tool_profiles
 await sql`create index if not exists idx_tool_profiles_keywords on tool_profiles using gin(keywords)`;
 await sql`create index if not exists idx_evidence_items_tool_id on evidence_items(tool_id)`;
 
-console.log(`Database schema ${reset ? "reset and recreated" : "ready"}.`);
+await sql`
+  insert into schema_migrations (version, description)
+  values ('0001', 'Initial workflows, tool profiles, sources, and evidence schema')
+  on conflict (version) do nothing
+`;
 
+console.log(`Database schema ${reset ? "reset and recreated" : "ready"}.`);

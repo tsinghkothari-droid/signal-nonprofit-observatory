@@ -4,6 +4,7 @@ const els = {
   workflow: document.querySelector("#workflow-filter"),
   search: document.querySelector("#search-input"),
   reset: document.querySelector("#reset-filters"),
+  exportBrief: document.querySelector("#export-brief"),
   costWeight: document.querySelector("#cost-weight"),
   fieldWeight: document.querySelector("#field-weight"),
   aiWeight: document.querySelector("#ai-weight"),
@@ -13,6 +14,8 @@ const els = {
   pressureLabel: document.querySelector("#pressure-label"),
   matrix: document.querySelector("#matrix"),
   toolList: document.querySelector("#tool-list"),
+  sourceList: document.querySelector("#source-list"),
+  searchResults: document.querySelector("#search-results"),
   gapList: document.querySelector("#gap-list"),
   queueList: document.querySelector("#queue-list"),
   detailTitle: document.querySelector("#detail-title"),
@@ -27,6 +30,7 @@ let selectedId = "whatsapp-outreach";
 let sortMode = "gap";
 let dashboardState = null;
 let requestId = 0;
+let searchTimer = null;
 
 function params() {
   const value = new URLSearchParams({
@@ -165,9 +169,16 @@ function renderDetail(tool, evidence = []) {
       ${evidence
         .map(
           (item) => `
-            <div>
+            <div class="evidence-row">
               <span>${item.claim}</span>
-              <strong>${item.source_name || "Evidence"}</strong>
+              <strong>
+                ${
+                  item.source_url
+                    ? `<a href="${item.source_url}" target="_blank" rel="noreferrer">${item.source_name || "Evidence"}</a>`
+                    : item.source_name || "Evidence"
+                }
+                <em>${item.confidence}%</em>
+              </strong>
             </div>
           `
         )
@@ -176,6 +187,52 @@ function renderDetail(tool, evidence = []) {
   `;
   els.detailBody.classList.remove("is-entering");
   requestAnimationFrame(() => els.detailBody.classList.add("is-entering"));
+}
+
+function renderSources(payload) {
+  const connectors = payload.connectors || [];
+  const sources = payload.sources || [];
+  const sourceBySlug = new Map(sources.map((source) => [source.slug, source]));
+
+  els.sourceList.innerHTML = connectors
+    .map((connector) => {
+      const source = sourceBySlug.get(connector.slug);
+      return `
+        <article class="stack-item source-card">
+          <span>${connector.status} · ${connector.method}</span>
+          <strong>${connector.name}</strong>
+          <p>${connector.use}</p>
+          <a href="${connector.endpoint}" target="_blank" rel="noreferrer">Inspect source</a>
+          <small>${source ? `Catalog source: ${source.source_type}` : connector.nextStep}</small>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderSearchResults(results) {
+  if (!els.search.value.trim()) {
+    els.searchResults.innerHTML = '<article class="stack-item"><p>Type a need such as "WhatsApp", "grant", "reporting", or "AI".</p></article>';
+    return;
+  }
+
+  if (!results.length) {
+    els.searchResults.innerHTML = '<article class="stack-item"><p>No evidence or tool records match yet. Add this as a research gap.</p></article>';
+    return;
+  }
+
+  els.searchResults.innerHTML = results
+    .slice(0, 5)
+    .map(
+      (item) => `
+        <article class="stack-item search-hit">
+          <span>${item.kind} · ${item.workflow || "unmapped"} · ${item.region || "global"}</span>
+          <strong>${item.title}</strong>
+          <p>${item.excerpt}</p>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderFromState() {
@@ -218,12 +275,55 @@ async function fetchDetail(slug) {
   renderDetail(data.tool, data.evidence);
 }
 
+async function fetchSources() {
+  const response = await fetch("/api/sources");
+  if (!response.ok) return;
+  renderSources(await response.json());
+}
+
+async function fetchSearch() {
+  const query = els.search.value.trim();
+  if (!query) {
+    renderSearchResults([]);
+    return;
+  }
+
+  const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+  if (!response.ok) return;
+  const data = await response.json();
+  renderSearchResults(data.results);
+}
+
+async function exportBrief() {
+  els.exportBrief.disabled = true;
+  els.exportBrief.textContent = "Preparing brief";
+  try {
+    const response = await fetch(`/api/reports/brief?${params().toString()}`);
+    if (!response.ok) throw new Error(`Report API returned ${response.status}`);
+    const data = await response.json();
+    const blob = new Blob([data.markdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "signal-research-brief.md";
+    link.click();
+    URL.revokeObjectURL(url);
+  } finally {
+    els.exportBrief.disabled = false;
+    els.exportBrief.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M6 9l4 4 4-4M4 17h12" /></svg>Export brief';
+  }
+}
+
 [els.region, els.size, els.workflow, els.costWeight, els.fieldWeight, els.aiWeight].forEach((input) => {
   input.addEventListener("input", () => void fetchDashboard());
   input.addEventListener("change", () => void fetchDashboard());
 });
 
-els.search.addEventListener("input", () => void fetchDashboard());
+els.search.addEventListener("input", () => {
+  void fetchDashboard();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => void fetchSearch(), 180);
+});
 
 els.reset.addEventListener("click", () => {
   els.region.value = "all";
@@ -236,6 +336,7 @@ els.reset.addEventListener("click", () => {
   sortMode = "gap";
   els.sortButtons.forEach((button) => button.classList.toggle("is-active", button.dataset.sort === sortMode));
   void fetchDashboard();
+  renderSearchResults([]);
 });
 
 els.sortButtons.forEach((button) => {
@@ -252,4 +353,8 @@ els.navItems.forEach((item) => {
   });
 });
 
+els.exportBrief.addEventListener("click", () => void exportBrief());
+
+void fetchSources();
+renderSearchResults([]);
 void fetchDashboard();

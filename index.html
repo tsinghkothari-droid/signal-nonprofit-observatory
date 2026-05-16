@@ -111,6 +111,10 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4v5h5M16 16v-5h-5M5 8a6 6 0 0 1 10-2M15 12A6 6 0 0 1 5 14" /></svg>
               Reset
             </button>
+            <button id="export-brief" class="command command-accent" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M6 9l4 4 4-4M4 17h12" /></svg>
+              Export brief
+            </button>
           </div>
         </header>
 
@@ -178,6 +182,22 @@
           </section>
 
           <aside class="side-stack">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Future-state readiness</h2>
+                <p>Connectors and source surfaces that can move now.</p>
+              </div>
+              <div id="source-list" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Research search</h2>
+                <p>Early API search across tools and reviewed evidence.</p>
+              </div>
+              <div id="search-results" class="stack-list compact-list"></div>
+            </section>
+
             <section class="panel">
               <div class="panel-head">
                 <h2>Gap drivers</h2>

@@ -266,12 +266,24 @@ input[type="range"] {
   background: var(--surface);
 }
 
+.command-accent {
+  background: #203d32;
+  border-color: #203d32;
+  color: #f6ffe0;
+}
+
 .command:hover,
 .command:focus-visible,
 .segmented button:hover,
 .segmented button:focus-visible {
   background: var(--surface-muted);
   outline: none;
+}
+
+.command-accent:hover,
+.command-accent:focus-visible {
+  background: #2b5644;
+  border-color: #2b5644;
 }
 
 .snapshot {
@@ -423,6 +435,25 @@ input[type="range"] {
   border-bottom: 1px solid var(--line);
 }
 
+.driver-list a,
+.source-card a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.driver-list a:hover,
+.source-card a:hover {
+  text-decoration: underline;
+}
+
+.driver-list em {
+  margin-left: 6px;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-style: normal;
+}
+
 .table-headline {
   align-items: center;
 }
@@ -537,6 +568,28 @@ input[type="range"] {
   margin: 5px 0 0;
   color: var(--muted);
   line-height: 1.45;
+}
+
+.stack-item small,
+.source-card a {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.source-card a {
+  color: var(--accent);
+}
+
+.compact-list .stack-item {
+  padding-block: 11px;
+}
+
+.search-hit strong {
+  line-height: 1.3;
 }
 
 .is-entering {

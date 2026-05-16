@@ -15,6 +15,9 @@ Delivered:
 - Seed schema and sample records.
 - PRD, TRD, app-flow, data-source, and data-model docs.
 - Playwright browser verification.
+- Source and connector readiness surface.
+- Basic evidence search API.
+- Exportable markdown research brief.
 
 ## Phase 1 - Evidence-Backed Catalog
 
@@ -24,9 +27,9 @@ Tasks:
 
 - Expand seed data to 100 tools and informal nonprofit stacks.
 - Add workflow taxonomy for at least 25 nonprofit jobs-to-be-done.
-- Add evidence links for each visible score.
+- Add evidence links for each visible score. `Partially shipped`
 - Add CSV/JSON import for contributor-maintained records.
-- Add an evidence inspector to every tool profile.
+- Add an evidence inspector to every tool profile. `Partially shipped`
 
 ## Phase 2 - Public Data Connectors
 
@@ -41,6 +44,11 @@ Priority connectors:
 - OpenAlex for research literature.
 - Airtable, Baserow, or NocoDB for community-maintained catalogs.
 
+Current pull-forward:
+
+- `/api/sources` exposes catalog sources and connector readiness.
+- Connector registry documents source status, method, endpoint, and next step.
+
 ## Phase 3 - Search and AI Assistance
 
 Goal: help users ask natural-language questions while preserving evidence review.
@@ -49,8 +57,8 @@ Tasks:
 
 - Add Postgres full-text search.
 - Add pgvector embeddings for reviewed evidence.
-- Add hybrid search across tools, workflows, and claims.
-- Generate draft research briefs with citations.
+- Add hybrid search across tools, workflows, and claims. `Basic keyword version shipped`
+- Generate draft research briefs with citations. `Markdown brief shipped`
 - Mark all AI-generated claims as draft until reviewed.
 
 ## Phase 4 - Contributor Workflow
